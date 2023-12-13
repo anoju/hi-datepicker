@@ -12,7 +12,6 @@ class hiDatepicker {
     this.isLayerShow = false;
     this.showPanel = 'day';
 
-
     // 옵션들
     const preClassName = options.preClassName || 'hi';
     this.mobile = options.mobile || false;
@@ -48,8 +47,8 @@ class hiDatepicker {
       table: preClassName + '-datepicker-table',
       tableBtn: preClassName + '-datepicker-table-btn',
       list: preClassName + '-datepicker-list',
-      listBtn: preClassName + '-datepicker-list-btn',
-    }
+      listBtn: preClassName + '-datepicker-list-btn'
+    };
 
     // 초기화 함수 호출
     this.init();
@@ -82,7 +81,7 @@ class hiDatepicker {
         }
       }
     }
-    return rtnVal
+    return rtnVal;
   }
 
   getArrayDate(array) {
@@ -90,7 +89,7 @@ class hiDatepicker {
     const newArray = [];
     const isArray = Array.isArray(array);
     if (!isArray) return null;
-    array.forEach(function(item) {
+    array.forEach(function (item) {
       newArray.push(_this.onlyNumber(item));
     });
     return newArray;
@@ -101,7 +100,7 @@ class hiDatepicker {
     const newArray = [];
     const isArray = Array.isArray(array);
     if (!isArray) return null;
-    array.forEach(function(item) {
+    array.forEach(function (item) {
       newArray.push(item.trim());
     });
     return newArray;
@@ -118,7 +117,7 @@ class hiDatepicker {
     const $wrap = document.createElement('div');
     $wrap.classList.add(_this.className.wrap);
     if (this.mobile) $wrap.classList.add(_this.className.mobile);
-    let $innerHtml = ''
+    let $innerHtml = '';
     if (this.mobile) $innerHtml += `<div class="${_this.className.dimm}" role="button" aria-label="달력닫음"></div>`;
     $innerHtml += `<div class="${_this.className.inner}"></div>`;
     $wrap.innerHTML = $innerHtml;
@@ -156,7 +155,7 @@ class hiDatepicker {
     if ($targetVal) _this.value = _this.onlyNumber($target.value);
     $target.addEventListener('focus', _this.targetInputEvent.bind(_this));
     $target.addEventListener('click', _this.targetInputEvent.bind(_this));
-    document.addEventListener('click', _this.documentEvent.bind(_this))
+    document.addEventListener('click', _this.documentEvent.bind(_this));
     if (_this.mobile) {
       const $dimm = $wrap.querySelector('.' + _this.className.dimm);
       if ($dimm) $dimm.addEventListener('click', _this.layerHide.bind(_this));
@@ -180,26 +179,24 @@ class hiDatepicker {
   // update
   update() {
     const _this = this;
-    setTimeout(function() {
+    setTimeout(function () {
       _this.makeHeader();
       _this.makeBody();
       _this.headerBtnControl();
     }, 1);
   }
 
-
-
   // event
   headerBtnEvent() {
     const _this = this;
     const $wrap = _this.wrap;
     const $headerBtns = $wrap.querySelectorAll('.' + _this.className.headerBtn);
-    $headerBtns.forEach(function($btn) {
+    $headerBtns.forEach(function ($btn) {
       $btn.removeEventListener('click', _this.headerBtnClickEvent.bind(_this));
       $btn.addEventListener('click', _this.headerBtnClickEvent.bind(_this));
     });
     const $titleBtns = $wrap.querySelectorAll('.' + _this.className.titleBtn);
-    $titleBtns.forEach(function($btn) {
+    $titleBtns.forEach(function ($btn) {
       $btn.removeEventListener('click', _this.titleBtnClickEvent.bind(_this));
       $btn.addEventListener('click', _this.titleBtnClickEvent.bind(_this));
     });
@@ -223,30 +220,30 @@ class hiDatepicker {
     const $maxMonth = Number($max.substr(0, 6));
 
     if ($showPanel === 'month') {
-      $yearBtn.forEach(function($btn) {
+      $yearBtn.forEach(function ($btn) {
         $btn.disabled = true;
       });
-      $monthBtn.forEach(function($btn) {
+      $monthBtn.forEach(function ($btn) {
         $btn.disabled = false;
         if ($minYear >= $monthYear && $btn.classList.contains('prev-month')) $btn.disabled = true;
         if ($maxYear <= $monthYear && $btn.classList.contains('next-month')) $btn.disabled = true;
       });
     } else if ($showPanel === 'year') {
-      $yearBtn.forEach(function($btn) {
+      $yearBtn.forEach(function ($btn) {
         $btn.disabled = false;
         if ($minYear >= $year && $btn.classList.contains('prev-year')) $btn.disabled = true;
-        if ($maxYear <= ($year + 10) && $btn.classList.contains('next-year')) $btn.disabled = true;
+        if ($maxYear <= $year + 10 && $btn.classList.contains('next-year')) $btn.disabled = true;
       });
-      $monthBtn.forEach(function($btn) {
+      $monthBtn.forEach(function ($btn) {
         $btn.disabled = true;
       });
     } else {
-      $headerBtns.forEach(function($btn) {
+      $headerBtns.forEach(function ($btn) {
         $btn.disabled = false;
         if ($minMonth >= $fullmonth && $btn.classList.contains('prev-month')) $btn.disabled = true;
         if ($maxMonth <= $fullmonth && $btn.classList.contains('next-month')) $btn.disabled = true;
-        if ($minMonth >= ($fullmonth - 100) && $btn.classList.contains('prev-year')) $btn.disabled = true;
-        if ($maxMonth <= ($fullmonth + 100) && $btn.classList.contains('next-year')) $btn.disabled = true;
+        if ($minMonth >= $fullmonth - 100 && $btn.classList.contains('prev-year')) $btn.disabled = true;
+        if ($maxMonth <= $fullmonth + 100 && $btn.classList.contains('next-year')) $btn.disabled = true;
       });
     }
   }
@@ -254,12 +251,12 @@ class hiDatepicker {
   addBodyBtnEvent() {
     const _this = this;
     const $wrap = _this.wrap;
-    const $tableBtns = $wrap.querySelectorAll('.' + _this.className.tableBtn)
-    $tableBtns.forEach(function($btn) {
+    const $tableBtns = $wrap.querySelectorAll('.' + _this.className.tableBtn);
+    $tableBtns.forEach(function ($btn) {
       $btn.addEventListener('click', _this.tableBtnClickEvent.bind(_this));
     });
-    const $listBtns = $wrap.querySelectorAll('.' + _this.className.listBtn)
-    $listBtns.forEach(function($btn) {
+    const $listBtns = $wrap.querySelectorAll('.' + _this.className.listBtn);
+    $listBtns.forEach(function ($btn) {
       $btn.addEventListener('click', _this.listBtnClickEvent.bind(_this));
     });
   }
@@ -267,12 +264,12 @@ class hiDatepicker {
   removeBodyBtnEvent() {
     const _this = this;
     const $wrap = _this.wrap;
-    const $tableBtns = $wrap.querySelectorAll('.' + _this.className.tableBtn)
-    $tableBtns.forEach(function($btn) {
+    const $tableBtns = $wrap.querySelectorAll('.' + _this.className.tableBtn);
+    $tableBtns.forEach(function ($btn) {
       $btn.removeEventListener('click', _this.tableBtnClickEvent.bind(_this));
     });
-    const $listBtns = $wrap.querySelectorAll('.' + _this.className.listBtn)
-    $listBtns.forEach(function($btn) {
+    const $listBtns = $wrap.querySelectorAll('.' + _this.className.listBtn);
+    $listBtns.forEach(function ($btn) {
       $btn.removeEventListener('click', _this.listBtnClickEvent.bind(_this));
     });
   }
@@ -285,7 +282,7 @@ class hiDatepicker {
     const $siblings = _this.getSiblings($panel);
     if ($siblings.length) {
       $panel.style.display = 'block';
-      $siblings.forEach(function(sibling) {
+      $siblings.forEach(function (sibling) {
         sibling.style.display = 'none';
       });
     }
@@ -315,13 +312,15 @@ class hiDatepicker {
   }
 
   layerPosition() {
-    console.log('layerPosition');
     const _this = this;
+    const $scrollY = window.scrollY ? window.scrollY : window.pageYOffset;
     const $target = _this.element;
-    console.log($target)
     const $wrap = _this.wrap;
-    const $top = _this.getOffset($target).top + $target.offsetHeight;
-    let $left = _this.getOffset($target).left + ($target.offsetWidth / 2) - ($wrap.offsetWidth / 2);
+    let $top = _this.getOffset($target).top + $target.offsetHeight;
+    if ($scrollY + window.innerHeight < $top + $wrap.offsetHeight && _this.getOffset($target).top > $wrap.offsetHeight) {
+      $top = _this.getOffset($target).top - $wrap.offsetHeight;
+    }
+    let $left = _this.getOffset($target).left + $target.offsetWidth / 2 - $wrap.offsetWidth / 2;
     if ($left > window.innerWidth - $wrap.offsetWidth) $left = window.innerWidth - $wrap.offsetWidth;
     if ($left < 0) $left = 0;
     $wrap.style.top = $top + 'px';
@@ -363,7 +362,6 @@ class hiDatepicker {
         _this.setStartMonthYear = Number(_this.setStartMonthYear) + 1;
       }
     } else {
-
       if ($target.classList.contains('prev-month')) {
         $month -= 1;
         if ($month < 1) {
@@ -516,9 +514,9 @@ class hiDatepicker {
   makeDaysBody() {
     const _this = this;
     const $lastDay = _this.getLastDay(_this.setYear, _this.setMonth);
-    const $startIdx = new Date(_this.setYear, (_this.setMonth - 1), 1, 0, 0, 0, 0).getDay();
+    const $startIdx = new Date(_this.setYear, _this.setMonth - 1, 1, 0, 0, 0, 0).getDay();
     const $lastIdx = $startIdx + $lastDay;
-    const $endIdx = ($lastIdx) % 7 === 0 ? $lastIdx : $lastIdx + (7 - $lastIdx % 7);
+    const $endIdx = $lastIdx % 7 === 0 ? $lastIdx : $lastIdx + (7 - ($lastIdx % 7));
     const $holidays = _this.holidays;
     const $disabledDays = _this.disabledDays;
     const $disabledWeek = _this.disabledWeek;
@@ -526,7 +524,7 @@ class hiDatepicker {
     let $tbodyHtml = '';
     for (let i = 0; i < $endIdx; i += 1) {
       const $weekIdx = i % 7;
-      const $isDisabledWeek = $disabledWeek.includes(String($weekIdx))
+      const $isDisabledWeek = $disabledWeek.includes(String($weekIdx));
       const $day = i - $startIdx + 1;
       const $fullday = _this.setYear + _this.setMonth + _this.changeStringDay($day);
       const $isHolidays = $holidays.includes($fullday);
@@ -535,7 +533,7 @@ class hiDatepicker {
       const $selected = _this.value === $fullday ? ' selected' : '';
       const $isDisableddays = $disabledDays.includes($fullday);
       const $notDisabled = Number(_this.minDate) <= Number($fullday) && Number($fullday) <= Number(_this.maxDate);
-      const $disabled = (!$notDisabled || $isDisableddays || $isDisabledWeek) ? ' disabled' : '';
+      const $disabled = !$notDisabled || $isDisableddays || $isDisabledWeek ? ' disabled' : '';
       if ($weekIdx === 0) $tbodyHtml += '<tr>';
       if (i < $startIdx || $lastIdx <= i) {
         $tbodyHtml += `<td data-week-idx="${$weekIdx}"></td>`;
@@ -587,7 +585,7 @@ class hiDatepicker {
     let $btnHtml = '';
     for (let i = 0; i < 10; i += 1) {
       const $year = $startYear + i;
-      const $today = Number(_this.todayString().substr(0, 4)) === $year ? ' today' : '';;
+      const $today = Number(_this.todayString().substr(0, 4)) === $year ? ' today' : '';
       const $notDisabled = Number(_this.minDate.substr(0, 4)) <= $year && $year <= Number(_this.maxDate.substr(0, 4));
       const $disabled = !$notDisabled ? ' disabled' : '';
       const $selected = $year === $valYear ? ' selected' : '';
@@ -597,7 +595,7 @@ class hiDatepicker {
     return $html;
   }
 
-  // set util 
+  // set util
   targetSetValue() {
     const _this = this;
     const $target = _this.element;
@@ -607,9 +605,9 @@ class hiDatepicker {
     }
   }
 
-  // get 
+  // get
   getStartYaer() {
-    const _this = this
+    const _this = this;
     const _start = Math.floor(_this.setYear / 10) * 10;
     const rtnVal = _this.setYear % 10 === 0 ? _start - 9 : _start + 1;
     return rtnVal;
@@ -618,17 +616,17 @@ class hiDatepicker {
   getLastDay(year, month) {
     const $year = typeof year === 'string' ? Number(year) : year;
     const $month = typeof month === 'string' ? Number(month) : month;
-    let $day = 31
+    let $day = 31;
     if ($month === 4 || $month === 6 || $month === 9 || $month === 11) {
-      $day = 30
+      $day = 30;
     } else if ($month === 2) {
       if ($year % 4 === 0 && ($year % 100 !== 0 || $year % 400 === 0)) {
-        $day = 29
+        $day = 29;
       } else {
-        $day = 28
+        $day = 28;
       }
     }
-    return $day
+    return $day;
   }
 
   // etc
@@ -668,12 +666,12 @@ class hiDatepicker {
   }
 
   getDateString(date) {
-    const $year = date.getFullYear()
-    let $month = date.getMonth() + 1
-    let $day = date.getDate()
-    if ((`${$month}`).length === 1) $month = `0${$month}`
-    if ((`${$day}`).length === 1) $day = `0${$day}`
-    return (`${$year}${$month}${$day}`)
+    const $year = date.getFullYear();
+    let $month = date.getMonth() + 1;
+    let $day = date.getDate();
+    if (`${$month}`.length === 1) $month = `0${$month}`;
+    if (`${$day}`.length === 1) $day = `0${$day}`;
+    return `${$year}${$month}${$day}`;
   }
 
   // util
@@ -685,7 +683,7 @@ class hiDatepicker {
   getSiblings(element) {
     const rtnAry = [];
     const siblings = Array.from(element.parentElement.children);
-    siblings.forEach(function(sibling) {
+    siblings.forEach(function (sibling) {
       if (sibling !== element) {
         rtnAry.push(sibling);
       }
